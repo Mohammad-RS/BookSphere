@@ -1,0 +1,52 @@
+<nav class="navbar">
+  <div *ngIf="!isLoggedIn">
+    <a routerLink="register" routerLinkActive="active">Sign Up</a>
+    <span class="separator">|</span>
+  </div>
+  <div *ngIf="!isLoggedIn">
+    <a routerLink="login" routerLinkActive="active">Login</a>
+    <span class="separator">|</span>
+  </div>
+  <div *ngIf="isLoggedIn">
+    <a routerLink="profile" routerLinkActive="active">Profile</a>
+    <span class="separator">|</span>
+  </div>
+  <div *ngIf="isLoggedIn">
+    <a routerLink="logout" routerLinkActive="active">Logout</a>
+    <span class="separator">|</span>
+  </div>
+
+  <div>
+    <a routerLink="add-author" routerLinkActive="active">Add Author</a>
+    <span class="separator">|</span>
+  </div>
+  <div>
+    <a routerLink="add-category" routerLinkActive="active">Add Category</a>
+    <span class="separator">|</span>
+  </div>
+  <div>
+    <a routerLink="add-book" routerLinkActive="active">Add Book</a>
+  </div>
+  <span class="separator">|</span>
+
+  <div>
+    <a routerLink="authors" routerLinkActive="active">Authors</a>
+    <span class="separator">|</span>
+  </div>
+  <div>
+    <a routerLink="categories" routerLinkActive="active">Categories</a>
+    <span class="separator">|</span>
+  </div>
+  <div>
+    <a routerLink="books" routerLinkActive="active">Books</a>
+  </div>
+</nav>
+
+<span class="separator"></span>
+<h2>Only Staff Users Can Access Certain Parts In Production.</h2>
+<h3>User Authorization Is Disabled In Development.</h3>
+<h3>Profile And Logout Are Available After Login.</h3>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Add Author</h2>
+  <form [formGroup]="addAuthorForm" (ngSubmit)="addAuthor()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        [ngClass]="{ 'is-invalid': name.touched && name.invalid }"
+      />
+      <div *ngIf="name.touched && name.invalid" class="invalid-feedback">
+        Name is required and must be less than 100 characters.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="bio">Bio</label>
+      <textarea id="bio" formControlName="bio"></textarea>
+    </div>
+    <button
+      type="submit"
+      class="btn-primary"
+      [disabled]="addAuthorForm.invalid"
+    >
+      Add Author
+    </button>
+  </form>
+</div>

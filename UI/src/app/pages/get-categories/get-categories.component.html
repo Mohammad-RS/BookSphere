@@ -1,0 +1,15 @@
+<div class="category-list-container">
+  <h2>categories</h2>
+  <div *ngIf="categories.length === 0" class="no-categories">
+    <p>No categories found.</p>
+  </div>
+  <ul class="category-list">
+    <li *ngFor="let category of categories" class="category-item">
+      <h3>
+        <a [routerLink]="['/categories', category.id]">{{ category.name }}</a>
+      </h3>
+      <p><strong>Summary:</strong> {{ category.summary }}</p>
+      <p><strong>Added On:</strong> {{ category.dateCreated | date }}</p>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,34 @@
+<section>
+  <form>
+    <input type="text" placeholder="Filter by Title or ISBN" #filter />
+    <button class="primary" type="button" (click)="filterResults(filter.value)">
+      Search
+    </button>
+  </form>
+</section>
+
+<div class="book-list-container">
+  <h2>Books</h2>
+  <div *ngIf="filteredBooks.length === 0" class="no-books">
+    <p>No books found.</p>
+  </div>
+  <ul class="book-list">
+    <li *ngFor="let book of filteredBooks" class="book-item">
+      <h3>
+        <a [routerLink]="['/books', book.id]">{{ book.title }}</a>
+      </h3>
+      <p><strong>Category:</strong> {{ book.category }}</p>
+      <p><strong>Author:</strong> {{ book.author }}</p>
+      <p><strong>Summary:</strong> {{ book.summary }}</p>
+      <p><strong>Available Copies:</strong> {{ book.availableCopies }}</p>
+      <img
+        *ngIf="book.coverImage"
+        [src]="book.coverImage"
+        alt="{{ book.title }} cover"
+        class="book-cover"
+      />
+    </li>
+  </ul>
+</div>
+
+<router-outlet></router-outlet>

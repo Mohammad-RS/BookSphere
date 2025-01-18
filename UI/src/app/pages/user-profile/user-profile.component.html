@@ -1,0 +1,36 @@
+<div class="profile-container">
+  <div class="avatar">
+    <img
+      [src]="userProfile?.avatar"
+      alt="{{ userProfile?.fullname }}'s avatar"
+    />
+  </div>
+  <section class="profile-details">
+    <h2>{{ userProfile?.fullname }}</h2>
+    <p class="username">{{ userProfile?.username }}</p>
+    <p class="email">{{ userProfile?.email }}</p>
+    <p class="date-created">
+      Joined on: {{ userProfile?.dateCreated | date : "fullDate" }}
+    </p>
+    <div class="status-container">
+      <p
+        class="verification-status"
+        [ngClass]="{
+          verified: userProfile?.isVerified,
+          'not-verified': !userProfile?.isVerified
+        }"
+      >
+        {{ userProfile?.isVerified ? "Verified" : "Email Not Verified" }}
+      </p>
+      <p
+        class="activation-status"
+        [ngClass]="{
+          active: userProfile?.isActive,
+          'not-active': !userProfile?.isActive
+        }"
+      >
+        {{ userProfile?.isActive ? "Active" : "Not Active" }}
+      </p>
+    </div>
+  </section>
+</div>

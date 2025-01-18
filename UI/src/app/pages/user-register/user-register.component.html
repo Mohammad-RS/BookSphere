@@ -1,0 +1,136 @@
+<div class="signup-container">
+  <h2>Sign Up</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': username.invalid && username.touched }"
+      />
+      <div
+        *ngIf="username.invalid && username.touched"
+        class="invalid-feedback"
+      >
+        <div *ngIf="username.errors?.['required']">Username is required.</div>
+        <div *ngIf="username.errors?.['minlength']">
+          Username must be at least 5 characters long.
+        </div>
+        <div *ngIf="username.errors?.['maxlength']">
+          Username cannot exceed 50 characters.
+        </div>
+        <div *ngIf="username.errors?.['pattern']">
+          Username can only contain letters, numbers, and underscores.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': email.invalid && email.touched }"
+      />
+      <div *ngIf="email.invalid && email.touched" class="invalid-feedback">
+        <div *ngIf="email.errors?.['required']">Email is required.</div>
+        <div *ngIf="email.errors?.['email']">Please enter a valid email.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password1">Password</label>
+      <input
+        id="password1"
+        type="password"
+        formControlName="password1"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': password1.invalid && password1.touched }"
+      />
+      <div
+        *ngIf="password1.invalid && password1.touched"
+        class="invalid-feedback"
+      >
+        <div *ngIf="password1.errors?.['required']">Password is required.</div>
+        <div *ngIf="password1.errors?.['minlength']">
+          Password must be at least 8 characters long.
+        </div>
+        <div *ngIf="password1.errors?.['maxlength']">
+          Password cannot exceed 16 characters.
+        </div>
+        <div *ngIf="password1.errors?.['pattern']">
+          Password must contain at least one uppercase letter, one lowercase
+          letter, and one number.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password2">Confirm Password</label>
+      <input
+        id="password2"
+        type="password"
+        formControlName="password2"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': password2.invalid && password2.touched }"
+      />
+      <div
+        *ngIf="password2.invalid && password2.touched"
+        class="invalid-feedback"
+      >
+        <div *ngIf="password2.errors?.['required']">
+          Please confirm your password.
+        </div>
+        <div *ngIf="password2.errors?.['mismatch']">
+          Passwords do not match.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input
+        id="fullname"
+        type="text"
+        formControlName="fullname"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': fullname.invalid && fullname.touched }"
+      />
+      <div
+        *ngIf="fullname.invalid && fullname.touched"
+        class="invalid-feedback"
+      >
+        <div *ngIf=" fullname.errors?.['maxlength']">
+          Full name cannot exceed 50 characters.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="avatar">Avatar</label>
+      <input
+        id="avatar"
+        type="file"
+        formControlName="avatar"
+        class="form-control"
+        (change)="Show($event)"
+      />
+    </div>
+
+    <div *ngIf="showAvatar" class="avatar">
+      <img [src]="avatarData" alt="{{ fullname }}'s avatar" />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="registerForm.invalid"
+    >
+      Sign Up
+    </button>
+  </form>
+</div>

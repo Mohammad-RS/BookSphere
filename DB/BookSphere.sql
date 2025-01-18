@@ -1,0 +1,113 @@
+CREATE DATABASE BookSphere
+USE BookSphere
+GO
+
+-- Tables -- 
+
+CREATE TABLE dbo.[User] (
+	Id INT NOT NULL IDENTITY PRIMARY KEY,
+	Username VARCHAR(50) NOT NULL UNIQUE,
+	Email VARCHAR(100) NOT NULL UNIQUE,
+	[Password] BINARY(16) NOT NULL,
+	Fullname NVARCHAR(50) NOT NULL,
+	Avatar VARCHAR(100),
+	DateCreated DATETIME DEFAULT GETDATE(),
+	DateModified DATETIME DEFAULT GETDATE(),
+	IsVerified BIT NOT NULL DEFAULT 0,
+	IsActive BIT NOT NULL DEFAULT 1,
+)
+CREATE UNIQUE INDEX idx_username ON dbo.[User] (Username)
+GO
+
+CREATE TABLE Author (
+	Id INT NOT NULL IDENTITY PRIMARY KEY,
+    [Name] NVARCHAR(100) NOT NULL,
+    Bio NVARCHAR(MAX),
+    DateCreated DATETIME DEFAULT GETDATE(),
+    DateModified DATETIME DEFAULT GETDATE()
+);
+GO
+
+CREATE TABLE Category (
+	Id INT NOT NULL IDENTITY PRIMARY KEY,
+    [Name] NVARCHAR(100) NOT NULL,
+	Summary NVARCHAR(MAX),
+    DateCreated DATETIME DEFAULT GETDATE(),
+    DateModified DATETIME DEFAULT GETDATE()
+);
+GO
+
+CREATE TABLE Book (
+    Id INT NOT NULL IDENTITY PRIMARY KEY,
+	AuthorId INT NOT NULL FOREIGN KEY REFERENCES dbo.Author(Id),
+	CategoryId INT NOT NULL FOREIGN KEY REFERENCES dbo.Category(Id),
+    Title NVARCHAR(100) NOT NULL,
+	Summary NVARCHAR(MAX),
+    ISBN NVARCHAR(20) UNIQUE,
+	AvailableCopies INT NOT NULL,
+	CoverImage NVARCHAR(100),
+    DateCreated DATETIME DEFAULT GETDATE(),
+    DateModified DATETIME DEFAULT GETDATE()
+);
+CREATE UNIQUE INDEX idx_title ON dbo.Book (Title)
+GO
+
+CREATE TABLE Review (
+	Id INT NOT NULL IDENTITY PRIMARY KEY,
+    BookId INT NOT NULL FOREIGN KEY REFERENCES dbo.Book(Id),
+    UserId INT NOT NULL FOREIGN KEY REFERENCES dbo.[User](Id),
+    rating INT CHECK (rating BETWEEN 1 AND 10) DEFAULT 5,
+    comment NVARCHAR(MAX),
+);
+GO
+
+CREATE TABLE Staff (
+	Id INT NOT NULL PRIMARY KEY FOREIGN KEY REFERENCES dbo.[User](Id),
+);
+GO
+
+-- Triggers --
+
+CREATE TRIGGER UpdateUserDateModifiedTrigger
+ON dbo.[User]
+AFTER UPDATE
+AS
+BEGIN
+    UPDATE dbo.[User]
+    SET DateModified = GETDATE()
+    WHERE Id IN (SELECT Id FROM INSERTED)
+END
+GO
+
+CREATE TRIGGER UpdateBookDateModifiedTrigger
+ON dbo.Book
+AFTER UPDATE
+AS
+BEGIN
+    UPDATE dbo.Book
+    SET DateModified = GETDATE()
+    WHERE Id IN (SELECT Id FROM INSERTED)
+END
+GO
+
+CREATE TRIGGER UpdateAuthorDateModifiedTrigger
+ON dbo.Author
+AFTER UPDATE
+AS
+BEGIN
+    UPDATE dbo.Author
+    SET DateModified = GETDATE()
+    WHERE Id IN (SELECT Id FROM INSERTED)
+END
+GO
+
+CREATE TRIGGER UpdateCategoryDateModifiedTrigger
+ON dbo.Category
+AFTER UPDATE
+AS
+BEGIN
+    UPDATE dbo.Category
+    SET DateModified = GETDATE()
+    WHERE Id IN (SELECT Id FROM INSERTED)
+END
+GO

@@ -1,0 +1,123 @@
+<div class="container">
+  <h2>Add Book</h2>
+  <form [formGroup]="addBookForm" (ngSubmit)="addBook()">
+    <div class="form-group">
+      <label for="title">Book Title</label>
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': title.invalid && title.touched }"
+      />
+      <div *ngIf="title.invalid && title.touched" class="invalid-feedback">
+        <div *ngIf="title.errors?.['required']">Book title is required.</div>
+        <div *ngIf="title.errors?.['maxlength']">
+          Book title cannot exceed 100 characters.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="author">Author</label>
+      <input
+        id="author"
+        type="text"
+        formControlName="author"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': author.invalid && author.touched }"
+      />
+      <div *ngIf="author.invalid && author.touched" class="invalid-feedback">
+        <div *ngIf="author.errors?.['required']">Author is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <input
+        id="category"
+        type="text"
+        formControlName="category"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': category.invalid && category.touched }"
+      />
+      <div
+        *ngIf="category.invalid && category.touched"
+        class="invalid-feedback"
+      >
+        <div *ngIf="category.errors?.['required']">Category is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="summary">Summary</label>
+      <textarea
+        id="summary"
+        formControlName="summary"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': summary.invalid && summary.touched }"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="isbn">ISBN</label>
+      <input
+        id="isbn"
+        type="text"
+        formControlName="isbn"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': isbn.invalid && isbn.touched }"
+      />
+      <div *ngIf="isbn.invalid && isbn.touched" class="invalid-feedback">
+        <div *ngIf="isbn.errors?.['maxlength']">
+          ISBN cannot exceed 20 characters.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="availableCopies">Available Copies</label>
+      <input
+        id="availableCopies"
+        type="number"
+        formControlName="availableCopies"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': availableCopies.invalid && availableCopies.touched
+        }"
+        min="0"
+      />
+      <div
+        *ngIf="availableCopies.invalid && availableCopies.touched"
+        class="invalid-feedback"
+      >
+        <div *ngIf="availableCopies.errors?.['required']">
+          Available copies are required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="coverImage">Cover Image</label>
+      <input
+        id="coverImage"
+        type="file"
+        formControlName="coverImage"
+        class="form-control"
+        (change)="Show($event)"
+      />
+    </div>
+
+    <div *ngIf="showImage" class="avatar">
+      <img [src]="avatarData" alt="Cover Image" />
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="addBookForm.invalid"
+    >
+      Add Book
+    </button>
+  </form>
+</div>

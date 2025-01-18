@@ -1,0 +1,91 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+}
+
+.profile-container {
+  background-color: #fff;
+  padding: 3rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-container:hover {
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.3);
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.avatar img {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 0.125rem solid;
+}
+
+.profile-details h2 {
+  margin: 0.5rem 0;
+  font-weight: 700;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.username {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.email {
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.date-created {
+  font-size: 1rem;
+  color: #999;
+}
+
+.status-container {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.verification-status,
+.activation-status {
+  font-weight: bold;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.verified {
+  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.not-verified {
+  color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.active {
+  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.not-active {
+  color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+}
