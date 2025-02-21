@@ -15,6 +15,7 @@ import { filter } from 'rxjs/operators';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
+  title: string = "UI";
   isLoggedIn: boolean = false;
 
   constructor(private router: Router) {}
